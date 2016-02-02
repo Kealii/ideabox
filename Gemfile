@@ -13,6 +13,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'byebug'
+  gem 'jasmine'
 end
 
 group :development do
@@ -21,5 +22,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'selenium-webdriver', '~> 2.50'
+  gem 'database_cleaner'
   gem 'simplecov'
 end

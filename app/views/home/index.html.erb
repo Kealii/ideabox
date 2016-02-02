@@ -1,0 +1,19 @@
+<%= form_tag ideas_path, id: 'createIdea' do %>
+  <%= label_tag :title %>
+  <%= text_field_tag :title %>
+  <%= label_tag :body %>
+  <%= text_field_tag :body %>
+  <%= submit_tag 'Save' %>
+<% end %>
+
+<ul class="ideas">
+
+</ul>
+
+
+<script>
+  $(function() {
+    Ideas.loadAll();
+    $('form#createIdea').submit(Ideas.create)
+  });
+</script>
