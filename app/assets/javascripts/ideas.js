@@ -3,7 +3,7 @@ var Ideas = {
         $.get('/ideas', function(ideas) {
             var ideasList = $('.ideas');
             $.each(ideas, function(_, idea) {
-                var newIdea = '<li>'+idea.title+" "idea.body+'</li>';
+                var newIdea = '<li>'+idea.title+' '+idea.body+'</li>';
                 ideasList.append(newIdea);
             });
         });
