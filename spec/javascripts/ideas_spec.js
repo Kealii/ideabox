@@ -21,12 +21,14 @@ describe('Ideas', function () {
             });
 
             Ideas.loadAll();
-
-            success([{title: 'my title', body: 'my body'}]);
+            success({
+                ideas:[{title: 'my title', body: 'my body'}]
+            });
 
             var ideas = $('.ideas').find('li');
 
             expect(ideas.length).toEqual(1)
+            expect($(ideas[0]).text()).toEqual('my title my body')
         });
     })
 });

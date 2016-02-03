@@ -1,6 +1,6 @@
 class IdeasController < ApplicationController
   def index
-    render json: Idea.all
+    render json: Idea.order(created_at: :desc).all
   end
 
   def create

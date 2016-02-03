@@ -1,8 +1,8 @@
 var Ideas = {
     loadAll: function() {
-        $.get('/ideas', function(ideas) {
+        $.get('/ideas', function(data) {
             var ideasList = $('.ideas');
-            $.each(ideas, function(_, idea) {
+            $.each(data.ideas, function(_, idea) {
                 var newIdea = '<li>'+idea.title+' '+idea.body+'</li>';
                 ideasList.append(newIdea);
             });
