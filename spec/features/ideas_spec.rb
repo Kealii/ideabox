@@ -46,5 +46,13 @@ feature 'Ideas', js: true do
       expect(page).to have_content 'Even more awesome Idea'
     end
 
+    within 'li', text: 'Edited Idea' do
+      click_on 'Delete'
+    end
+
+    within '.ideas' do
+      expect(page).to_not have_content 'Edited Idea'
+      expect(page).to_not have_content 'Even more awesome Idea'
+    end
   end
 end
