@@ -1,6 +1,6 @@
 var Ideas = {
     _presentEditButton: function(title, body) {
-        return title+' '+body+'<button>Edit</button>';
+        return title+' '+body+'<button>Edit</button>'+'<button>Delete</button>';
     },
 
     _presentIdea: function(id, title, body) {
