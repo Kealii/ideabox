@@ -28,7 +28,7 @@ describe('Ideas', function () {
             var ideas = $('.ideas').find('li');
 
             expect(ideas.length).toEqual(1)
-            expect($(ideas[0]).text()).toEqual('my title my body')
+            expect($(ideas[0]).text()).toContain('my title my body')
         });
     })
 });

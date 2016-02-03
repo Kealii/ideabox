@@ -10,10 +10,21 @@
 
 </ul>
 
+<%= form_tag ideas_path, id: 'secretForm' do %>
+  <%= label_tag :title %>
+  <%= text_field_tag :title %>
+  <%= label_tag :body %>
+  <%= text_field_tag :body %>
+  <%= hidden_field_tag :id %>
+  <%= submit_tag 'Save' %>
+<% end %>
+
 
 <script>
   $(function() {
+    $('form#createIdea').submit(Ideas.create);
+    $('form#secretForm').submit(Ideas.update);
     Ideas.loadAll();
-    $('form#createIdea').submit(Ideas.create)
+    $('.ideas').on('click', 'button', Ideas.showForm);
   });
 </script>
