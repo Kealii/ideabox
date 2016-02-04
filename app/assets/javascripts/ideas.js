@@ -10,7 +10,7 @@ var Ideas = {
     },
 
     _presentIdea: function(id, title, body, rating) {
-        return '<li data-id='+id+'>'+Ideas._presentButtons(title, body, rating)+'</li>';
+        return '<li data-id='+id+'>'+ Ideas._presentButtons(title, body, rating)+'</li>';
     },
 
     _render: function(ideas) {
@@ -32,10 +32,7 @@ var Ideas = {
     },
 
     loadAll: function() {
-        $.get('/ideas', function(data) {
-            var ideas = data.ideas;
-            Ideas._render(ideas);
-        });
+        $.get('/ideas', function(data) { Ideas._render(data.ideas); });
     },
 
     create: function(event) {
@@ -47,7 +44,7 @@ var Ideas = {
         bodyInput = $(event.target).find('input[name=body]');
         body = bodyInput.val();
 
-        $.post('/ideas', {title: title, body: body}).success(function(xhr) {
+        $.post('/ideas', {title: title, body: body}).success(function() {
             $('.ideas').empty();
             Ideas.loadAll();
             titleInput.val('');
@@ -72,9 +69,8 @@ var Ideas = {
             method: 'PUT',
             data: {title: title, body: body}
             }
-        ).success(function(xhr) {
+        ).success(function() {
             Ideas.loadAll();
-
             titleInput.val('');
             bodyInput.val('');
         });
@@ -82,34 +78,20 @@ var Ideas = {
     },
 
     delete: function(event) {
-        var li, id;
-        li = $(event.target).parent('li');
-        id = li.data('id')
-        $.ajax('/ideas/'+id, { method: 'DELETE' }).success(function() {
-            Ideas.loadAll();
-        })
+        var id = $(event.target).parent('li').data('id');
+        $.ajax('/ideas/'+id, { method: 'DELETE' }).success(function() { Ideas.loadAll(); })
     },
 
     ratingUp: function(event) {
-        var li = $(event.target).parent('li');
-        $.ajax('/ideas/'+li.data('id'),
-            {
-                method: 'PUT',
-                data: { rating: 1 }
-            }).success(function() {
-                Ideas.loadAll();
-            })
+        var id = $(event.target).parent('li').data('id');
+        $.ajax('/ideas/'+id, { method: 'PUT', data: { rating: 1 } })
+            .success(function() { Ideas.loadAll(); })
     },
 
     ratingDown: function(event) {
-        var li = $(event.target).parent('li');
-        $.ajax('/ideas/'+li.data('id'),
-            {
-                method: 'PUT',
-                data: { rating: -1 }
-            }).success(function() {
-                Ideas.loadAll();
-            })
+        var id = $(event.target).parent('li').data('id');
+        $.ajax('/ideas/'+id, { method: 'PUT', data: { rating: -1 } })
+            .success(function() { Ideas.loadAll(); })
     },
 
     convertRating: function(rating) {
@@ -124,10 +106,6 @@ var Ideas = {
 
     search: function(event) {
         var query = $(event.target).val();
-        $.get('/ideas?q='+query).success(function(data) {
-            Ideas._render(data.ideas)
-        })
-    },
-
+        $.get('/ideas?q='+query).success(function(data) { Ideas._render(data.ideas) })
+    }
 };
-
