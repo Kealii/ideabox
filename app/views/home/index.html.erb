@@ -25,6 +25,7 @@
     $('form#createIdea').submit(Ideas.create);
     $('form#secretForm').submit(Ideas.update);
     Ideas.loadAll();
-    $('.ideas').on('click', 'button', Ideas.showForm);
+    $('.ideas').on('click', 'button.edit', Ideas.showForm);
+    $('.ideas').on('click', 'button.delete', Ideas.delete);
   });
 </script>

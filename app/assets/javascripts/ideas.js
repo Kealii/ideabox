@@ -1,6 +1,6 @@
 var Ideas = {
     _presentEditButton: function(title, body) {
-        return title+' '+body+'<button>Edit</button>'+'<button>Delete</button>';
+        return title+' '+body+'<button class="edit">Edit</button>'+'<button class="delete">Delete</button>';
     },
 
     _presentIdea: function(id, title, body) {
@@ -16,9 +16,21 @@ var Ideas = {
         form.show();
     },
 
+    delete: function(event) {
+        var li, id;
+        li = $(event.target).parent('li');
+        id = li.data('id')
+        $.ajax('/ideas/'+id, { method: 'DELETE' }).success(function(xhr) {
+        Ideas.loadAll();
+        })
+
+    },
+
     loadAll: function() {
         $.get('/ideas', function(data) {
             var ideasList = $('.ideas');
+            $('body').append($('#secretForm').hide());
+            ideasList.empty();
             $.each(data.ideas, function(_, idea) {
                 ideasList.append(Ideas._presentIdea(idea.id, idea.title, idea.body));
             });
@@ -42,8 +54,6 @@ var Ideas = {
             data: {title: title, body: body}
             }
         ).success(function(xhr) {
-            $('body').append($(event.target).hide());
-            $('.ideas').empty();
             Ideas.loadAll();
 
             titleInput.val('');
@@ -68,6 +78,8 @@ var Ideas = {
             bodyInput.val('');
         });
         return false
-    }
+    },
+
+
 };
 

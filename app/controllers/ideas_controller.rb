@@ -13,7 +13,7 @@ class IdeasController < ApplicationController
     render nothing: true
   end
 
-  def delete
+  def destroy
     Idea.delete(params[:id])
     render nothing: true
   end

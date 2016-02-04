@@ -50,9 +50,12 @@ feature 'Ideas', js: true do
       click_on 'Delete'
     end
 
-    within '.ideas' do
-      expect(page).to_not have_content 'Edited Idea'
-      expect(page).to_not have_content 'Even more awesome Idea'
-    end
+    expect(page).to_not have_content 'Edited Idea'
+    expect(page).to_not have_content 'Even more awesome Idea'
+
+    visit '/'
+
+    expect(page).to_not have_content 'Edited Idea'
+    expect(page).to_not have_content 'Even more awesome Idea'
   end
 end
