@@ -16,8 +16,8 @@ describe IdeasController do
 
     it 'can filter idea title by query param' do
       idea1 = Idea.create!(title: 'Foo',     body: 'Idea 1 Body')
-      idea2 = Idea.create!(title: 'Bar',     body: 'Idea 2 Body')
-      idea3 = Idea.create!(title: 'Central', body: 'Idea 3 Body')
+      Idea.create!(title: 'Bar',     body: 'Idea 2 Body')
+      Idea.create!(title: 'Central', body: 'Idea 3 Body')
 
       get :index, q: 'Fo'
 
@@ -29,8 +29,7 @@ describe IdeasController do
     it 'can filter idea body query param' do
       idea1 = Idea.create!(title: 'Foo',     body: 'Idea 1 Body')
       idea2 = Idea.create!(title: 'Bar',     body: 'Idea 1 Body')
-      idea3 = Idea.create!(title: 'Central', body: 'Idea 3 Body')
-
+      Idea.create!(title: 'Central', body: 'Idea 3 Body')
       get :index, q: 'Idea 1'
 
       parsed = JSON.parse(response.body)['ideas']
