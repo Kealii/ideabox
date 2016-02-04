@@ -1,10 +1,12 @@
 var Ideas = {
     _presentButtons: function(title, body, rating) {
-        return title+' '+body+' '+Ideas.convertRating(rating)+
-            '<button class="thumbsUp">+</button>'+
-            '<button class="thumbsDown">-</button>'+
+        return 'Title: '+title+'. '+
             '<button class="edit">Edit</button>'+
-            '<button class="delete">Delete</button>';
+            '<button class="delete">Delete</button>'+ '<br>'+
+            'Body: '+body+'. '+'<br>'+
+            'Rating: '+Ideas.convertRating(rating)+' '+
+            '<button class="thumbsUp">+</button>'+
+            '<button class="thumbsDown">-</button>';
     },
 
     _presentIdea: function(id, title, body, rating) {
