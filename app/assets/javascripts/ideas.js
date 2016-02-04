@@ -1,10 +1,22 @@
 var Ideas = {
-    _presentEditButton: function(title, body) {
-        return title+' '+body+'<button class="edit">Edit</button>'+'<button class="delete">Delete</button>';
+    _presentEditButton: function(title, body, rating) {
+        return title+' '+body+' '+Ideas.convertRating(rating)+
+            '<button class="edit">Edit</button>'+
+            '<button class="delete">Delete</button>';
     },
 
-    _presentIdea: function(id, title, body) {
-        return '<li data-id='+id+'>'+Ideas._presentEditButton(title, body)+'</li>';
+    _presentIdea: function(id, title, body, rating) {
+        return '<li data-id='+id+'>'+Ideas._presentEditButton(title, body, rating)+'</li>';
+    },
+
+    convertRating: function(rating) {
+      if(rating == 0) {
+          return 'Swill';
+      } else if(rating == 1) {
+          return 'Plausible';
+      } else {
+          return 'Genius';
+      }
     },
 
     showForm: function(event) {
@@ -32,7 +44,7 @@ var Ideas = {
             $('body').append($('#secretForm').hide());
             ideasList.empty();
             $.each(data.ideas, function(_, idea) {
-                ideasList.append(Ideas._presentIdea(idea.id, idea.title, idea.body));
+                ideasList.append(Ideas._presentIdea(idea.id, idea.title, idea.body, idea.rating));
             });
         });
     },

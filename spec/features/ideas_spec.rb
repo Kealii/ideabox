@@ -11,6 +11,7 @@ feature 'Ideas', js: true do
     within '.ideas' do
       expect(page).to have_content 'Idea #1'
       expect(page).to have_content 'This is such an awesome idea yo'
+      expect(page).to have_content 'Swill'
     end
 
     expect(page).to have_field 'Title', with: ''
