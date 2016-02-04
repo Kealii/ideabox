@@ -3,7 +3,6 @@ require 'rails_helper'
 feature 'Ideas', js: true do
   it 'can be managed' do
     visit '/'
-
     fill_in 'Title', with: 'Idea #1'
     fill_in 'Body', with: 'This is such an awesome idea yo'
     click_on 'Save'
@@ -23,13 +22,6 @@ feature 'Ideas', js: true do
       expect(page).to have_content 'Idea #1'
       expect(page).to have_content 'This is such an awesome idea yo'
     end
-
-    within 'li', text: 'Idea #1' do
-      click_on '+'
-    end
-
-    expect(page).to_not have_content 'Swill'
-    expect(page).to have_content 'Plausible'
 
     within 'li', text: 'Idea #1' do
       click_on 'Edit'
@@ -65,5 +57,42 @@ feature 'Ideas', js: true do
 
     expect(page).to_not have_content 'Edited Idea'
     expect(page).to_not have_content 'Even more awesome Idea'
+  end
+
+  it 'has ratings that can be managed' do
+    visit '/'
+    fill_in 'Title', with: 'Idea #1'
+    fill_in 'Body', with: 'This is such an awesome idea yo'
+    click_on 'Save'
+
+    expect(page).to have_content 'Swill'
+
+    click_on '+'
+
+    expect(page).to_not have_content 'Swill'
+    expect(page).to have_content 'Plausible'
+
+    click_on '+'
+
+    expect(page).to_not have_content 'Plausible'
+    expect(page).to have_content 'Genius'
+
+    click_on '+'
+
+    expect(page).to have_content 'Genius'
+
+    click_on '-'
+
+    expect(page).to_not have_content 'Genius'
+    expect(page).to have_content 'Plausible'
+
+    click_on '-'
+
+    expect(page).to_not have_content 'Plausible'
+    expect(page).to have_content 'Swill'
+
+    click_on '-'
+
+    expect(page).to have_content 'Swill'
   end
 end
