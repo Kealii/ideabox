@@ -4,9 +4,9 @@ var Ideas = {
             '<button class="edit">Edit</button>'+
             '<button class="delete">Delete</button>'+ '<br>'+
             'Body: '+body+'. '+'<br>'+
-            'Rating: '+Ideas.convertRating(rating)+' '+
-            '<button class="thumbsUp">+</button>'+
-            '<button class="thumbsDown">-</button>';
+            'Rating: '+Ideas.convertRating(rating)+' '+'<br>'+
+            '<button class="thumbsDown">-</button>'+
+            '<button class="thumbsUp">+</button>';
     },
 
     _presentIdea: function(id, title, body, rating) {
