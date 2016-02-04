@@ -9,7 +9,9 @@ class IdeasController < ApplicationController
   end
 
   def update
-    Idea.update(params[:id], idea_params)
+    idea = Idea.update(params[:id], idea_params)
+    idea.rating += params[:rating].to_i
+    idea.save
     render nothing: true
   end
 
@@ -21,6 +23,6 @@ class IdeasController < ApplicationController
   private
 
   def idea_params
-    {title: params[:title], body: params[:body]}
+    params.permit(:body, :title)
   end
 end

@@ -1,6 +1,7 @@
 var Ideas = {
     _presentEditButton: function(title, body, rating) {
         return title+' '+body+' '+Ideas.convertRating(rating)+
+            '<button class="thumbsUp">+</button>'+
             '<button class="edit">Edit</button>'+
             '<button class="delete">Delete</button>';
     },
@@ -19,6 +20,17 @@ var Ideas = {
       }
     },
 
+    ratingUp: function(event) {
+      var li = $(event.target).parent('li');
+        $.ajax('/ideas/'+li.data('id'),
+            {
+                method: 'PUT',
+                data: { rating: 1 }
+            }).success(function() {
+                Ideas.loadAll();
+            })
+    },
+
     showForm: function(event) {
         var li, form;
         li = $(event.target).parent('li');
@@ -32,10 +44,9 @@ var Ideas = {
         var li, id;
         li = $(event.target).parent('li');
         id = li.data('id')
-        $.ajax('/ideas/'+id, { method: 'DELETE' }).success(function(xhr) {
-        Ideas.loadAll();
+        $.ajax('/ideas/'+id, { method: 'DELETE' }).success(function() {
+            Ideas.loadAll();
         })
-
     },
 
     loadAll: function() {

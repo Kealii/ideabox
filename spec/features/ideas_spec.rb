@@ -25,6 +25,13 @@ feature 'Ideas', js: true do
     end
 
     within 'li', text: 'Idea #1' do
+      click_on '+'
+    end
+
+    expect(page).to_not have_content 'Swill'
+    expect(page).to have_content 'Plausible'
+
+    within 'li', text: 'Idea #1' do
       click_on 'Edit'
       fill_in 'Title', with: 'Edited Idea'
       fill_in 'Body', with: 'Even more awesome Idea'
