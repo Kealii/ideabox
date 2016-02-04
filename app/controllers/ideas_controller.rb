@@ -1,6 +1,13 @@
 class IdeasController < ApplicationController
   def index
-    render json: Idea.order(created_at: :desc).all
+    ideas = Idea.order(created_at: :desc)
+
+    if params[:q]
+      idea_table = Idea.arel_table
+     ideas = ideas.where(idea_table[:title].matches("%#{params[:q]}%").or(idea_table[:body].matches("%#{params[:q]}%")))
+    end
+
+    render json: ideas.all
   end
 
   def create

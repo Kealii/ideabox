@@ -6,6 +6,11 @@
   <%= submit_tag 'Save' %>
 <% end %>
 
+<%= form_tag do %>
+  <%= label_tag :search %>
+  <%= text_field_tag :search %>
+<% end %>
+
 <ul class="ideas">
 
 </ul>
@@ -19,7 +24,6 @@
   <%= submit_tag 'Save' %>
 <% end %>
 
-
 <script>
   $(function() {
     $('form#createIdea').submit(Ideas.create);
@@ -29,5 +33,6 @@
     $('.ideas').on('click', 'button.delete', Ideas.delete);
     $('.ideas').on('click', 'button.thumbsUp', Ideas.ratingUp);
     $('.ideas').on('click', 'button.thumbsDown', Ideas.ratingDown);
+    $('input[name=search]').keyup(Ideas.search)
   });
 </script>

@@ -95,4 +95,24 @@ feature 'Ideas', js: true do
 
     expect(page).to have_content 'Swill'
   end
+
+  it 'can be searched' do
+    visit '/'
+    fill_in 'Title', with: 'Idea #1'
+    fill_in 'Body', with: 'This is such an awesome idea yo'
+    click_on 'Save'
+    fill_in 'Title', with: 'Idea #2'
+    fill_in 'Body', with: 'Sketchy plans'
+    click_on 'Save'
+
+    fill_in 'Search', with: 'Idea'
+
+    expect(page).to have_content 'Idea #1'
+    expect(page).to have_content 'Idea #2'
+
+    fill_in 'Search', with: 'Sketchy'
+
+    expect(page).to_not have_content 'Idea #1'
+    expect(page).to have_content 'Idea #2'
+  end
 end

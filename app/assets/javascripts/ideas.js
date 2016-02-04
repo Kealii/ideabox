@@ -21,6 +21,22 @@ var Ideas = {
       }
     },
 
+    _render: function(ideas) {
+        var ideasList = $('.ideas');
+        $('body').append($('#secretForm').hide());
+        ideasList.empty();
+        $.each(ideas, function(_, idea) {
+            ideasList.append(Ideas._presentIdea(idea.id, idea.title, idea.body, idea.rating));
+        });
+    },
+
+    search: function(event) {
+       var query = $(event.target).val();
+        $.get('/ideas?q='+query).success(function(data) {
+                Ideas._render(data.ideas)
+            })
+    },
+
     ratingUp: function(event) {
       var li = $(event.target).parent('li');
         $.ajax('/ideas/'+li.data('id'),
@@ -63,12 +79,8 @@ var Ideas = {
 
     loadAll: function() {
         $.get('/ideas', function(data) {
-            var ideasList = $('.ideas');
-            $('body').append($('#secretForm').hide());
-            ideasList.empty();
-            $.each(data.ideas, function(_, idea) {
-                ideasList.append(Ideas._presentIdea(idea.id, idea.title, idea.body, idea.rating));
-            });
+            var ideas = data.ideas;
+            Ideas._render(ideas);
         });
     },
 
