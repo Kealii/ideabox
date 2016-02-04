@@ -21,4 +21,23 @@ describe Idea do
       expect(idea.errors[:rating]).to include('must be greater than -1')
     end
   end
+
+  describe 'save' do
+    it 'does not truncate less than 100 characters' do
+      body = ''
+      100.times { body += 'A' }
+      idea = Idea.new(body: body)
+      idea.save
+
+      expect(idea.body).to eq body
+    end
+
+    it 'truncates to the nearest word' do
+      body = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id risus euismod, faucibus est sed amet.'
+      idea = Idea.new(body: body)
+      idea.save
+
+      expect(idea.body).to eq 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id risus euismod, faucibus est sed'
+    end
+  end
 end
