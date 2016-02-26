@@ -14,21 +14,22 @@ var Ideas = {
     },
 
     _render: function(ideas) {
-        var ideasList = $('.ideas');
-        $('body').append($('#secretForm').hide());
-        ideasList.empty();
+        var $ideas = $('.ideas');
+        var $body = $('body');
+        var $secretForm = $('#secretForm');
+        $body.append($secretForm.hide());
+        $ideas.empty();
         $.each(ideas, function(_, idea) {
-            ideasList.append(Ideas._presentIdea(idea.id, idea.title, idea.body, idea.rating));
+            $ideas.append(Ideas._presentIdea(idea.id, idea.title, idea.body, idea.rating));
         });
     },
 
     showForm: function(event) {
-        var li, form;
-        li = $(event.target).parent('li');
-        form = $('#secretForm');
-        form.find('input[type=hidden]').val(li.data('id'));
-        li.append(form);
-        form.show();
+        var li = $(event.target).parent('li');
+        var $secretForm = $('#secretForm');
+        $secretForm.find('input[type=hidden]').val(li.data('id'));
+        li.append($secretForm);
+        $secretForm.show();
     },
 
     loadAll: function() {
@@ -37,6 +38,7 @@ var Ideas = {
 
     create: function(event) {
         var title, body, titleInput, bodyInput;
+        var $ideas = $('.ideas');
 
         titleInput = $(event.target).find('input[name=title]');
         title = titleInput.val();
@@ -45,7 +47,7 @@ var Ideas = {
         body = bodyInput.val();
 
         $.post('/ideas', {title: title, body: body}).success(function() {
-            $('.ideas').empty();
+            $ideas.empty();
             Ideas.loadAll();
             titleInput.val('');
             bodyInput.val('');
