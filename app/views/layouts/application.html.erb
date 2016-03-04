@@ -12,13 +12,14 @@
 
 <script>
   $(function() {
+    var ideas = $('.ideas');
     $('form#createIdea').submit(Ideas.create);
     $('form#secretForm').submit(Ideas.update);
     Ideas.loadAll();
-    $('.ideas').on('click', 'button.edit', Ideas.showForm);
-    $('.ideas').on('click', 'button.delete', Ideas.delete);
-    $('.ideas').on('click', 'button.thumbsUp', Ideas.ratingUp);
-    $('.ideas').on('click', 'button.thumbsDown', Ideas.ratingDown);
+    ideas.on('click', 'button.edit', Ideas.showForm);
+    ideas.on('click', 'button.delete', Ideas.delete);
+    ideas.on('click', 'button.thumbsUp', Ideas.ratingUp);
+    ideas.on('click', 'button.thumbsDown', Ideas.ratingDown);
     $('input[name=search]').keyup(Ideas.search)
   });
 </script>
