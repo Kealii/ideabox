@@ -81,7 +81,8 @@ var Ideas = {
 
     delete: function(event) {
         var id = $(event.target).parent('li').data('id');
-        $.ajax('/ideas/'+id, { method: 'DELETE' }).success(function() { Ideas.loadAll(); })
+        $.ajax('/ideas/'+id, { method: 'DELETE' })
+            .success(function() { Ideas.loadAll(); })
     },
 
     ratingUp: function(event) {
@@ -96,6 +97,11 @@ var Ideas = {
             .success(function() { Ideas.loadAll(); })
     },
 
+    search: function(event) {
+        var query = $(event.target).val();
+        $.get('/ideas?q='+query).success(function(data) { Ideas._render(data.ideas) })
+    },
+
     convertRating: function(rating) {
         if(rating == 0) {
             return 'Swill';
@@ -104,10 +110,5 @@ var Ideas = {
         } else {
             return 'Genius';
         }
-    },
-
-    search: function(event) {
-        var query = $(event.target).val();
-        $.get('/ideas?q='+query).success(function(data) { Ideas._render(data.ideas) })
     }
 };
