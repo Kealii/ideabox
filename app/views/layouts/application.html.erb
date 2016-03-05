@@ -13,6 +13,7 @@
 <script>
   $(function() {
     var ideas = $('.ideas');
+    var search_bar = $('input[name=search]');
     $('form#createIdea').submit(Ideas.create);
     $('form#secretForm').submit(Ideas.update);
     Ideas.loadAll();
@@ -20,7 +21,7 @@
     ideas.on('click', 'button.delete', Ideas.delete);
     ideas.on('click', 'button.thumbsUp', Ideas.ratingUp);
     ideas.on('click', 'button.thumbsDown', Ideas.ratingDown);
-    $('input[name=search]').keyup(Ideas.search)
+    search_bar.keyup(Ideas.search);
   });
 </script>
 
